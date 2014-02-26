@@ -1,0 +1,6 @@
+#!/bin/sh
+if [ ! -f /mount/database/ibdata1 ]; then
+    mysql_install_db --datadir=/mount/database/
+fi
+chmod -R a+wX /mount/log
+exec /usr/sbin/mysqld

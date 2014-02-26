@@ -1,0 +1,24 @@
+#!/bin/sh
+
+sleep 1s
+
+echo "===================================" >> /mount/log/mysql_init.log
+echo "Attempting to create MySQL app user" >> /mount/log/mysql_init.log
+
+# This returns a 0 exit code if the mysql command does not fail
+echo 'exit' | mysql test
+
+# Check if the exit code is 0. If it is, mysql is online.
+if [ $? = 0 ]; then
+	echo "GRANT ALL ON *.* TO app@'192.168.1.%' IDENTIFIED BY 'rook';" | mysql
+	if [ $? = 0 ]; then
+		echo "Done. Stopping mysql_init service." >> /mount/log/mysql_init.log
+		touch /etc/service/mysql_init/down
+		sv stop /etc/service/mysql_init
+	else
+		echo "Something went wrong! Retry in 1s" >> /mount/log/mysql_init.log
+	fi
+else
+  echo "Mysql not running yet. Retry in 1s" >> /mount/log/mysql_init.log
+fi
+sleep 1s

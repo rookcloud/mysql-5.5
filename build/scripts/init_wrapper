@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+
+# Wait for the local container network to come online
+while ! grep -q ^1$ /sys/class/net/eth1/carrier 2>/dev/null
+	do sleep 1
+done
+
+echo "Starting init process"
+exec /sbin/my_init
