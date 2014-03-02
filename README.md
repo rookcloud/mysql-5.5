@@ -1,7 +1,7 @@
-A rook container running mysql-5.5
-==================================
+mysql-5.5
+=========
 
-A very basic mysql
+The mysql-5.5 container for Rook
 
 Scripts
 =======
