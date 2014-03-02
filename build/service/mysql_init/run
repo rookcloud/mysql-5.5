@@ -21,4 +21,3 @@ if [ $? = 0 ]; then
 else
   echo "Mysql not running yet. Retry in 1s" >> /mount/log/mysql_init.log
 fi
-sleep 1s

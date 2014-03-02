@@ -1,7 +1,9 @@
 #!/bin/bash
 set -e
 
-# Wait for the local container network to come online
+# Wait for the local container network to come online.
+# This will need to be changed when we start using OpenVSwitch.
+echo "Waiting for networking to become available"
 while ! grep -q ^1$ /sys/class/net/eth1/carrier 2>/dev/null
 	do sleep 1
 done
