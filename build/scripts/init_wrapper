@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+su root /sbin/init_permissions
+
 # Wait for the local container network to come online.
 # This will need to be changed when we start using OpenVSwitch.
 echo "Waiting for networking to become available"
