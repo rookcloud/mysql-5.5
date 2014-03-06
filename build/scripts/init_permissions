@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+
+echo "Updating old mysql files to new id"
+find /var/ -user $(id -u mysql) -print0 | xargs -0 chown $(stat -c %u /mount)
+
+echo "Setting mysql uid"
+usermod -u $(stat -c %u /mount) mysql
+
+mkdir -p /var/run/mysqld
+chown mysql:mysql /var/run/mysqld
