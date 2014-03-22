@@ -1,11 +1,17 @@
 #!/bin/sh
 set -e
 
-echo "Updating old mysql files to new id"
-find /var/ -user $(id -u mysql) -print0 | xargs -0 chown $(stat -c %u /mount)
+if [[ $ROOK_DEVELOPMENT_MODE = true ]]; then
+  new_uid=$(stat -c %u /rook/config)
+else
+  new_uid=1234
+fi
 
-echo "Setting mysql uid"
-usermod -u $(stat -c %u /mount) mysql
+echo "Updating old MySQL files to new UID"
+find /rook/persist/db -user $(id -u mysql) -print0 | xargs -0 chown $new_uid
+
+echo "Setting new MySQL UID"
+usermod -u $new_uid mysql
 
 mkdir -p /var/run/mysqld
 chown mysql:mysql /var/run/mysqld
