@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 if [[ $ROOK_DEVELOPMENT_MODE = true ]]; then
@@ -7,8 +7,10 @@ else
   new_uid=1234
 fi
 
-echo "Updating old MySQL files to new UID"
-find /rook/persist/db -user $(id -u mysql) -print0 | xargs -0 chown $new_uid
+if [[ -e /rook/persist/db ]]; then
+  echo "Updating old MySQL files to new UID"
+  find /rook/persist/db -user $(id -u mysql) -print0 | xargs -0 chown $new_uid
+fi
 
 echo "Setting new MySQL UID"
 usermod -u $new_uid mysql
