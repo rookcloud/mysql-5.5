@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-/sbin/init_permissions
+/rook/scripts/init_permissions
 rm -f /etc/service/mysql_init/down
 echo "Starting init process"
 exec /sbin/my_init
