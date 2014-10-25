@@ -22,7 +22,7 @@ RUN ln -sf /mount/config/my.cnf /etc/mysql/my.cnf
 ADD scripts /rook/scripts/rook_init
 
 # Use the init wrapper. This will start the init process once all init scripts are completed
-CMD ["/sbin/rook_init"]
+CMD ["/rook/scripts/rook_init"]
 
 # For debugging purposes, will be removed in later versions
 RUN /usr/sbin/enable_insecure_key
