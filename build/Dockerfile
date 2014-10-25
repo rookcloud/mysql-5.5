@@ -1,4 +1,4 @@
-FROM phusion/baseimage
+FROM phusion/baseimage:0.9.15
 MAINTAINER Goffert van Gool "goffert@phusion.nl"
 
 # Force non-interactive installs
@@ -19,10 +19,7 @@ ADD service /etc/service
 RUN ln -sf /mount/config/my.cnf /etc/mysql/my.cnf
 
 # Add our init scripts
-ADD scripts /sbin
+ADD scripts /rook/scripts
 
 # Use the init wrapper. This will start the init process once all init scripts are completed
-CMD ["/sbin/init_wrapper"]
-
-# For debugging purposes, will be removed in later versions
-RUN /usr/sbin/enable_insecure_key
+CMD ["/rook/scripts/rook_init"]

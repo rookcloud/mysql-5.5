@@ -1,6 +1,5 @@
 #!/bin/bash
-
-BASEDIR=$(dirname $(readlink -f $0))
-IMAGE=$(basename $BASEDIR)
+set -e
+IMAGE=mysql-5.5
 echo Building $IMAGE
-docker build -t rook/$IMAGE ./build
+exec docker build -t rook/$IMAGE ./build
