@@ -2,13 +2,11 @@
 set -e
 
 rm -f /etc/my.cnf
-ln -s /rook/config/my.cnf /etc/my.cnf
+ln -s /rook/persist/config/my.cnf /etc/my.cnf
 
 if [[ ! -f /rook/persist/db/ibdata1 ]]; then
   mkdir -p /rook/persist/db
   mysql_install_db --datadir=/rook/persist/db/
 fi
-
-#chmod -R a+wX /rook/log
 
 exec /usr/sbin/mysqld

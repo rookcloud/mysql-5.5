@@ -2,8 +2,8 @@
 
 sleep 1s
 
-echo "===================================" >> /rook/log/mysql_init.log
-echo "Attempting to create MySQL app user" >> /rook/log/mysql_init.log
+echo "===================================" >> /rook/persist/log/mysql_init.log
+echo "Attempting to create MySQL app user" >> /rook/persist/log/mysql_init.log
 
 # This returns a 0 exit code if the mysql command does not fail
 echo 'exit' | mysql test
@@ -12,12 +12,12 @@ echo 'exit' | mysql test
 if [[ $? = 0 ]]; then
   echo "GRANT ALL ON *.* TO app@'192.168.1.%' IDENTIFIED BY 'rook';" | mysql
   if [[ $? = 0 ]]; then
-    echo "Done. Stopping mysql_init service." >> /rook/log/mysql_init.log
+    echo "Done. Stopping mysql_init service." >> /rook/persist/log/mysql_init.log
     touch /etc/service/mysql_init/down
     sv down /etc/service/mysql_init
   else
-    echo "Something went wrong! Retry in 1s" >> /rook/log/mysql_init.log
+    echo "Something went wrong! Retry in 1s" >> /rook/persist/log/mysql_init.log
   fi
 else
-  echo "Mysql not running yet. Retry in 1s" >> /rook/log/mysql_init.log
+  echo "Mysql not running yet. Retry in 1s" >> /rook/persist/log/mysql_init.log
 fi
