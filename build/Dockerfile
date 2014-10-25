@@ -19,7 +19,7 @@ ADD service /etc/service
 RUN ln -sf /mount/config/my.cnf /etc/mysql/my.cnf
 
 # Add our init scripts
-ADD scripts /rook/scripts/rook_init
+ADD scripts /rook/scripts
 
 # Use the init wrapper. This will start the init process once all init scripts are completed
 CMD ["/rook/scripts/rook_init"]
