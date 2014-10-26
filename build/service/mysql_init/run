@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 sleep 1s
 
@@ -6,11 +6,11 @@ echo "===================================" >> /rook/persist/log/mysql_init.log
 echo "Attempting to create MySQL app user" >> /rook/persist/log/mysql_init.log
 
 # This returns a 0 exit code if the mysql command does not fail
-echo 'exit' | mysql test
+echo 'exit' | mysql
 
 # Check if the exit code is 0. If it is, mysql is online.
 if [[ $? = 0 ]]; then
-  echo "GRANT ALL ON *.* TO app@'192.168.1.%' IDENTIFIED BY 'rook';" | mysql
+  echo "GRANT ALL ON *.* TO app@'172.17.%.%' IDENTIFIED BY 'rook';" | mysql
   if [[ $? = 0 ]]; then
     echo "Done. Stopping mysql_init service." >> /rook/persist/log/mysql_init.log
     touch /etc/service/mysql_init/down
